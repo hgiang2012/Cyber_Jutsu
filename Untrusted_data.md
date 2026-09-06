@@ -128,6 +128,16 @@ Upload file test.js
 
 
 # NOTE 
-## 1. SQL Injections on Referer Header Exploitable via Time-based Method
+## 1. Nơi đầu tiên Untrusted Data xuất hiện 
+![image]https://github.com/user-attachments/assets/a3b15a59-b6c6-4eb7-b2c6-7aaea6ae3160)
+
+Mảng chứa tham số GET param
+
+## 2 Có bao nhiêu Untrusted Data ở 
+
+<img width="416" height="356" alt="image" src="https://github.com/user-attachments/assets/95841528-7689-4263-b527-3b330a78f2e9" />
+
+3 trường POST và biến cookie
+
 
 
