@@ -40,6 +40,27 @@ mảng 1: php
 mảng 2: jpg
 --> extension ở đây là php
 
+<img width="482" height="192" alt="image" src="https://github.com/user-attachments/assets/ca9ecebd-47ca-4e6f-9ce2-854b79114267" />
+
+<img width="338" height="86" alt="image" src="https://github.com/user-attachments/assets/061c6fbf-5b1f-4c40-9385-3021e3fb2503" />
+
+<img width="181" height="50" alt="image" src="https://github.com/user-attachments/assets/3701f067-1a8c-40ea-9f40-8ab0492731f9" />
+
+Dù chương trình nhận định đuôi file là txt nhưng đuôi file cuối là php -> vẫn chạy chương trình php
+<img width="181" height="50" alt="image" src="https://github.com/user-attachments/assets/b7c7ae53-f4d6-452e-8362-9fe7c3fefc24" />
+
+<img width="317" height="81" alt="image" src="https://github.com/user-attachments/assets/56b23d1b-e259-4510-a89c-27c55cdc1b21" />
+<img width="512" height="360" alt="image" src="https://github.com/user-attachments/assets/925d48eb-1951-4b5b-8da4-a2e9a69810c1" />
+<img width="320" height="101" alt="image" src="https://github.com/user-attachments/assets/790cf957-f1e4-4cf8-b635-78a8a98af220" />
+<img width="321" height="62" alt="image" src="https://github.com/user-attachments/assets/3ecc5c2f-b5bc-4126-a01a-d5c480d7c412" />
+CBJS{wr0nGlY_ImplEm3nt}
+
+# 3
+
+<img width="614" height="285" alt="image" src="https://github.com/user-attachments/assets/2426a733-dd34-4be4-ab33-f4a1297543e4" />
+
+<img width="554" height="182" alt="image" src="https://github.com/user-attachments/assets/f66f0cf3-a653-480b-b301-ee3f13e594ac" />
+
 
 ## NOTE
 
