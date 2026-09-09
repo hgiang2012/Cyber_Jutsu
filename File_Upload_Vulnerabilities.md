@@ -98,6 +98,55 @@ Mà ta để ý rằng, ngoại trừ đuôi .php thì ở đây: .phar và .pht
 CBJS{bl4ck_list?}
 
 # 4
+<img width="612" height="286" alt="image" src="https://github.com/user-attachments/assets/f2935a1f-f8c4-4e40-b726-993b2b40a8e8" />
+Ở đây, dev đã fix lại lỗi ở lab 3 và chặn cả 3 đuôi file là .phar, .php, .phtml
+
+# APACHE CONFIG 
+
+```
+<Directory />
+        Options FollowSymLinks
+        AllowOverride None
+        Require all denied
+</Directory>
+```
+--> Mặc định Apache deny toàn bộ file system
+
+```<Directory /var/www/>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+</Directory>
+```
+`AllowOverride All` --> cho phép `.htaccess` ghi đè
+
+```<FilesMatch "^\.ht">
+        Require all denied
+</FilesMatch>
+```
+Tên file bắt đầu bằng `.ht` sẽ bị từ chối truy cập qua HTTP
+
+
+#
+# The following directives define some format nicknames for use with
+# a CustomLog directive.
+ErrorLog ${APACHE_LOG_DIR}/error.log
+LogLevel warn
+
+LogFormat "%v:%p %h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" vhost_combined
+LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
+LogFormat "%h %l %u %t \"%r\" %>s %O" common
+LogFormat "%{Referer}i -> %U" referer
+LogFormat "%{User-agent}i" agent
+
+# Include generic snippets of statements
+IncludeOptional conf-enabled/*.conf
+
+# Include the virtual host configurations:
+IncludeOptional sites-enabled/*.conf
+ ```
+ 
+
 ## NOTE
 
 
@@ -134,7 +183,7 @@ Kiểm tra các container đang chạy
 <img width="667" height="256" alt="image" src="https://github.com/user-attachments/assets/4a235fdc-db0a-4f96-9fdb-2457719919d4" />
 
 Cấu trúc $_FILES
-$_FILES
+```$_FILES
 └── file
     ├── name: tên file
     ├── full_path
@@ -142,14 +191,31 @@ $_FILES
     ├── tmp_name: đường dẫn tạm thời mà PHP lưu file upload trên server 
     ├── error: mã trạng thái upload
     └── size: kích thước file
+```
 
 <img width="322" height="16" alt="image" src="https://github.com/user-attachments/assets/8908b113-1976-4868-bbff-0ae98792e89b" />
 
-/tmp/phpABC123
+```/tmp/phpABC123
        │
        │ move_uploaded_file()
        ↓
 upload/test.jpg
+```
+
+- Config của Apache2 dùng để cấu hình cho các hành vi và chức năng của nó như
++ DocumentRoot
++ FileHandler
++ Encryption
++ Error Messages....
+
+- Các config được lưu ở
++ /etc/apache2/
++ /etc/apache2/sites-available/
++ /etc/apache2/sites-enabled/
++ /etc/apache2/mods-available/
++ /etc/apache2/conf-available/
+
++ 
 
 
     
