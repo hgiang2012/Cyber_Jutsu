@@ -59,9 +59,45 @@ CBJS{wr0nGlY_ImplEm3nt}
 
 <img width="614" height="285" alt="image" src="https://github.com/user-attachments/assets/2426a733-dd34-4be4-ab33-f4a1297543e4" />
 
+Chương trình xét phần tử cuối cùng sau ".", kết thúc bằng php thì chương trình end
+
+
 <img width="554" height="182" alt="image" src="https://github.com/user-attachments/assets/f66f0cf3-a653-480b-b301-ee3f13e594ac" />
 
+<img width="288" height="185" alt="image" src="https://github.com/user-attachments/assets/994976bc-f4c5-4a8c-b65c-e8754671e6ab" />
 
+<FilesMatch ".+\.ph(ar|p|tml)$">
+    SetHandler application/x-httpd-php
+</FilesMatch>
+
+Apache sẽ dùng PHP handler để xử lý những file có tên kết thúc bằng .phar, .php, hoặc .phtml
+
+DirectoryIndex disabled
+DirectoryIndex index.php index.html
+
+Đây là cấu hình khi up thư mục mà không ghi tên file, Apache sẽ quyết định mở thư mục nào trong đó
+Nhưng ở đây tồn tại 2 cấu hình trái ngược nhau
+DirectoryIndex disabled --> tắt
+DirectoryIndex index.php index.html --> bật
+Nhưng vì DirectoryIndex index.php index.html được set up sau, nên đây sẽ là cấu hình được khởi 
+
+<LocationMatch ^/upload/$>
+    Order deny,allow
+    Deny from all
+</LocationMatch>
+
+Cấu hình deny all truy cập vào /upload/
+nhưng ví dụ /upload/test.jpg thì vẫn được
+
+Mà ta để ý rằng, ngoại trừ đuôi .php thì ở đây: .phar và .phtml vẫn được php xử lý nhưng code chỉ detect đuôi .php để chặn
+<img width="340" height="72" alt="image" src="https://github.com/user-attachments/assets/13637171-787f-412d-b77f-5628280a5ded" />
+
+<img width="200" height="67" alt="image" src="https://github.com/user-attachments/assets/ac13a86a-a0b5-4acf-872f-ef8a6f1fbb07" />
+<img width="556" height="385" alt="image" src="https://github.com/user-attachments/assets/df057c5d-762d-4557-80ee-9a6ba39f4a25" />
+<img width="157" height="44" alt="image" src="https://github.com/user-attachments/assets/f90af69d-7c55-4dd1-94c1-46a1e5bde8fd" />
+CBJS{bl4ck_list?}
+
+# 4
 ## NOTE
 
 
