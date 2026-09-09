@@ -2,6 +2,43 @@
 
 ## LAB 
 
+# 1.
+
+<img width="330" height="83" alt="image" src="https://github.com/user-attachments/assets/4b0d7855-a75e-4466-9021-cd1d05ef4c29" />
+
+<img width="326" height="89" alt="image" src="https://github.com/user-attachments/assets/04103377-5311-4622-a3f1-de63ee0a05ca" />
+
+Vẫn thành công
+
+<img width="716" height="206" alt="image" src="https://github.com/user-attachments/assets/691ba06a-eb9a-42ac-8e64-8ab25127b2f7" />
+
+<img width="700" height="71" alt="image" src="https://github.com/user-attachments/assets/6c648907-2e4b-40e8-b2a2-b28e84cfc337" />
+ Code được thực thi thành công
+
+<img width="323" height="95" alt="image" src="https://github.com/user-attachments/assets/67120847-4779-4bcd-8d03-88f262a450ad" />
+
+<img width="475" height="344" alt="image" src="https://github.com/user-attachments/assets/84a44dde-e826-41aa-aac1-4de4b96a487a" />
+
+<img width="340" height="91" alt="image" src="https://github.com/user-attachments/assets/6aaaa1f4-e22e-4056-876d-681e6550a0ab" />
+
+<img width="203" height="36" alt="image" src="https://github.com/user-attachments/assets/9748f473-1b81-49b2-9a68-3f4dc8b3c548" />
+
+CBJS{why-php-run-what?}
+
+# 2.
+
+<img width="605" height="281" alt="image" src="https://github.com/user-attachments/assets/89570840-4fc4-4223-b15c-747d2735b396" />
+
+$extension = explode(".", $filename)[1];
+Ở đây, code sẽ xác định file extension ở mảng 1 ngăn cách bởi dấu '.'
+Ví dụ 1:
+'abc.txt' txt sẽ là mảng 1
+Ví dụ 2
+'abc.php.jpg' 
+mảng 0: abc
+mảng 1: php
+mảng 2: jpg
+--> extension ở đây là php
 
 
 ## NOTE
