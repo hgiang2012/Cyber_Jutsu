@@ -118,7 +118,7 @@ CBJS{bl4ck_list?}
         Require all granted
 </Directory>
 ```
-`AllowOverride All` --> cho phép `.htaccess` ghi đè
+`AllowOverride All` --> cho phép `.htaccess` ghi đè, tự 
 
 ```<FilesMatch "^\.ht">
         Require all denied
@@ -126,26 +126,98 @@ CBJS{bl4ck_list?}
 ```
 Tên file bắt đầu bằng `.ht` sẽ bị từ chối truy cập qua HTTP
 
+Nhìn lại 3 lab trước, ứng với mỗi config của code thì có 1 hướng đi khác 
+--> có thể tự thay đổi config của apache ?
+--> tự upload `.htaccess` 
+Ta sẽ Upload file `.htaccess` giả lên để tạo ra config cho mod-php với đuôi file tùy 
+<img width="854" height="106" alt="image" src="https://github.com/user-attachments/assets/14bcb548-7a3e-4c31-acf0-2c250b1882e5" />
+- Up thành công, file này sẽ config những file có đuôi là `.pha`, `.phb`, `.phc` sẽ chạy được 
 
-#
-# The following directives define some format nicknames for use with
-# a CustomLog directive.
-ErrorLog ${APACHE_LOG_DIR}/error.log
-LogLevel warn
+<img width="344" height="80" alt="image" src="https://github.com/user-attachments/assets/043a18fa-59d7-425a-9b6c-d8bd075dd458" />
 
-LogFormat "%v:%p %h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" vhost_combined
-LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
-LogFormat "%h %l %u %t \"%r\" %>s %O" common
-LogFormat "%{Referer}i -> %U" referer
-LogFormat "%{User-agent}i" agent
+<img width="683" height="69" alt="image" src="https://github.com/user-attachments/assets/533f782a-93fd-455e-9037-ac6291036fa6" />
 
-# Include generic snippets of statements
-IncludeOptional conf-enabled/*.conf
 
-# Include the virtual host configurations:
-IncludeOptional sites-enabled/*.conf
- ```
- 
+<img width="310" height="89" alt="image" src="https://github.com/user-attachments/assets/05064706-61bb-473c-8c2e-d6c01ef335c9" />
+
+
+<img width="644" height="344" alt="image" src="https://github.com/user-attachments/assets/489bc094-8a59-4bc0-b75a-dd0357ab8a79" />
+
+
+<img width="333" height="83" alt="image" src="https://github.com/user-attachments/assets/3a2ce175-c262-44b5-ae4e-ac288685f426" />
+
+
+<img width="383" height="56" alt="image" src="https://github.com/user-attachments/assets/bac178a9-4f4c-46e4-b50a-3b7439761252" />
+
+CBJS{so_magic_I_wondeR_what_about_other_system?}
+
+
+# 5
+
+
+<img width="482" height="221" alt="image" src="https://github.com/user-attachments/assets/e45e8bd7-bb47-4921-a76d-510889b3b37b" />
+
+<img width="621" height="345" alt="image" src="https://github.com/user-attachments/assets/3d1cbe80-597d-43bc-867e-9de54dc062db" />
+Chỉ được up ảnh
+
+<img width="448" height="228" alt="image" src="https://github.com/user-attachments/assets/a4ce24c7-68b4-4970-b126-24eab7ad23cc" />
+
+Thử đổi file name và nội dung
+
+<img width="358" height="92" alt="image" src="https://github.com/user-attachments/assets/3651176b-debb-489a-a615-2cc1b7f842ae" />
+
+<img width="73" height="41" alt="image" src="https://github.com/user-attachments/assets/c7a84483-7d9b-48a1-8356-54e2a9ee5983" />
+
+
+<img width="333" height="82" alt="image" src="https://github.com/user-attachments/assets/2795ba7e-c8d8-4756-8a2f-3371eeca55b4" />
+
+<img width="195" height="55" alt="image" src="https://github.com/user-attachments/assets/28eaa02a-3759-422a-a0a4-26a379228aa1" />
+
+
+<img width="350" height="77" alt="image" src="https://github.com/user-attachments/assets/a3d62ce6-ed2f-4d61-8e6f-9e9aba59bb14" />
+
+<img width="521" height="338" alt="image" src="https://github.com/user-attachments/assets/62d42729-dec8-4e0e-9ca9-1adead2b9f12" />
+
+
+<img width="402" height="99" alt="image" src="https://github.com/user-attachments/assets/6d1be40d-677d-475b-9829-8f1cbcd21b3f" />
+
+
+<img width="314" height="93" alt="image" src="https://github.com/user-attachments/assets/939ff1a9-b35a-418b-b5f9-b26869ef1b28" />
+
+CBJS{why_you_check_with_useR_input}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## NOTE
 
@@ -215,7 +287,14 @@ upload/test.jpg
 + /etc/apache2/mods-available/
 + /etc/apache2/conf-available/
 
-+ 
+-  Các file config của Apache
++ File config chính
+<img width="205" height="119" alt="image" src="https://github.com/user-attachments/assets/358701c2-6de7-450d-832f-7978600aaa1e" />
++ File `.htaccess`
+  <img width="223" height="104" alt="image" src="https://github.com/user-attachments/assets/0ef6e5d1-ed17-4708-89fc-d4f2c04aa79c" />
+Cho phép cấu hình Apache ngay tại từng thư mục 
+ <img width="292" height="208" alt="image" src="https://github.com/user-attachments/assets/bdab20e2-a08b-40f6-b8b7-ca36de5445ba" />
+
 
 
     
