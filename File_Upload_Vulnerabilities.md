@@ -151,6 +151,29 @@ Ta sẽ Upload file `.htaccess` giả lên để tạo ra config cho mod-php v�
 
 CBJS{so_magic_I_wondeR_what_about_other_system?}
 
+# CÁCH TIẾP CẬN KHÁC VỚI LỖI XSS
+
+
+<img width="329" height="100" alt="image" src="https://github.com/user-attachments/assets/9d40d70d-a23a-4247-a457-5f73dff8df68" />
+
+
+<img width="108" height="60" alt="image" src="https://github.com/user-attachments/assets/a7d90435-ad74-4b00-9ebc-406d2b759329" />
+
+
+<img width="267" height="101" alt="image" src="https://github.com/user-attachments/assets/87818ec8-2aa7-4823-a0ad-df9cdca9dca3" />
+
+
+<img width="745" height="196" alt="image" src="https://github.com/user-attachments/assets/0a85b9da-3390-45c0-9dee-9437e3b7d59f" />
+
+---> lợi dụng để cướp cookie nạn nạn nhân
+
+
+<img width="482" height="314" alt="image" src="https://github.com/user-attachments/assets/1b7c9dc7-6d8f-4d7c-be2a-61e4b3bcb3d2" />
+
+<img width="331" height="251" alt="image" src="https://github.com/user-attachments/assets/1f03477f-7d7f-4aa3-85e0-b8fb73b54b35" />
+
+
+
 
 # 5
 
@@ -186,14 +209,26 @@ Thử đổi file name và nội dung
 
 CBJS{why_you_check_with_useR_input}
 
+#6
+
+
+<img width="598" height="362" alt="image" src="https://github.com/user-attachments/assets/710700a7-a1e2-4ace-b0f5-5f84cbaa5b65" />
+
+Code giờ không chỉ check content type mà còn check cả nội dung 
 
 
 
+<img width="470" height="214" alt="image" src="https://github.com/user-attachments/assets/65ff0adc-bbe2-49e0-b9f4-c8ee651acbbc" />
+ Để nguyên nội dung file và đổi tên file --> hệ thống vẫn nhận
 
 
+<img width="333" height="77" alt="image" src="https://github.com/user-attachments/assets/96a0a6a5-e403-4a80-8e74-fb839e4c02cf" />
 
+Nhưng nếu sửa đổi nội dung thì web không chạy. Ta sẽ thử chèn lên đầu xem hệ thống có nhận ko
 
+<img width="532" height="286" alt="image" src="https://github.com/user-attachments/assets/ad631aa9-a37d-44bd-be8a-c1ffdcdd4b25" />
 
+Và đổi được đuôi file thành`.php`
 
 
 
