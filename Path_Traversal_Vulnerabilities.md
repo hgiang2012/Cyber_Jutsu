@@ -7,6 +7,12 @@
 
 <img width="639" height="361" alt="image" src="https://github.com/user-attachments/assets/94276ac6-e506-410e-a2b9-3e5b5b096edb" />
 
+## Level 2:
+<img width="343" height="185" alt="image" src="https://github.com/user-attachments/assets/73b35c17-34dc-4cd0-8003-1cce8daa7bef" />
+Chương trình chặn sử dụng `..` nên ta sẽ dùng absolute path thay vì relative path 
+<img width="738" height="179" alt="image" src="https://github.com/user-attachments/assets/fadcb6c2-7c84-4d1e-a3f0-9c26ec80a33d" />
+CBJS{read_file_with_absolute_path}
+## Level 3:
 
 
 
