@@ -209,7 +209,7 @@ Thử đổi file name và nội dung
 
 CBJS{why_you_check_with_useR_input}
 
-#6
+# 6
 
 
 <img width="598" height="362" alt="image" src="https://github.com/user-attachments/assets/710700a7-a1e2-4ace-b0f5-5f84cbaa5b65" />
@@ -222,24 +222,36 @@ Code giờ không chỉ check content type mà còn check cả nội dung
  Để nguyên nội dung file và đổi tên file --> hệ thống vẫn nhận
 
 
-<img width="333" height="77" alt="image" src="https://github.com/user-attachments/assets/96a0a6a5-e403-4a80-8e74-fb839e4c02cf" />
 
-Nhưng nếu sửa đổi nội dung thì web không chạy. Ta sẽ thử chèn lên đầu xem hệ thống có nhận ko
+<img width="446" height="292" alt="image" src="https://github.com/user-attachments/assets/1f61a4f5-d844-43ee-aa28-f9765d3a29f1" />
 
-<img width="532" height="286" alt="image" src="https://github.com/user-attachments/assets/ad631aa9-a37d-44bd-be8a-c1ffdcdd4b25" />
+Check lại các signature của các file mà hệ thống cho phép và test thử từng trường hợp 
 
-Và đổi được đuôi file thành`.php`
-
+<img width="604" height="190" alt="image" src="https://github.com/user-attachments/assets/bfa86801-8fb5-4dcc-9f31-e4d39c043563" />
 
 
+<img width="578" height="83" alt="image" src="https://github.com/user-attachments/assets/0b3c69dd-588b-483f-a6c3-7ebc5ae8234b" />
+
+
+<img width="610" height="86" alt="image" src="https://github.com/user-attachments/assets/94df02db-2723-40eb-90c8-2b5e223b1b08" />
+
+
+<img width="401" height="134" alt="image" src="https://github.com/user-attachments/assets/12a3a3b8-4a69-4a93-8f08-06d0862feafc" />
+
+Thành công
+
+<img width="145" height="57" alt="image" src="https://github.com/user-attachments/assets/606566c0-0fa8-4042-bbaf-7b6ce3db9088" />
 
 
 
+<img width="416" height="353" alt="image" src="https://github.com/user-attachments/assets/fde0be21-783d-4997-ab7d-59453cbf7447" />
 
 
 
+<img width="232" height="72" alt="image" src="https://github.com/user-attachments/assets/46c0f959-a675-47eb-8446-2065b04312e4" />
 
 
+CBJS{ch3ck_mag1c_bite_iz_tragic}
 
 
 
