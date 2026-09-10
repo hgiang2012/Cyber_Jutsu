@@ -13,6 +13,8 @@ Chương trình chặn sử dụng `..` nên ta sẽ dùng absolute path thay v�
 <img width="738" height="179" alt="image" src="https://github.com/user-attachments/assets/fadcb6c2-7c84-4d1e-a3f0-9c26ec80a33d" />
 CBJS{read_file_with_absolute_path}
 ## Level 3:
+<img width="568" height="404" alt="image" src="https://github.com/user-attachments/assets/074c41be-3dad-4769-91cf-94d5afbd0507" />
+Ở đây, chương trình sẽ tạo store place cho mỗi use `/var/www/html/upload/' . bin2hex(random_bytes(16)`
 
 
 
