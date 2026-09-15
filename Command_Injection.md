@@ -33,6 +33,32 @@ CBJS{Command_Injection_Dont_need_semicolon_763d036657127a4f21c670530e319b52}
 
 <img width="590" height="356" alt="image" src="https://github.com/user-attachments/assets/ffe89aae-42fe-41c6-943b-00cd6985bcb5" />
 
+Nhưng ngoại trừ những kí tự trên, ta còn có thể sử dụng newliine
+
+<img width="775" height="223" alt="image" src="https://github.com/user-attachments/assets/7d536ae9-9d17-4dda-9591-a77fd7d2181b" />
+
+Chuyển newline sang dạng hex
+
+<img width="721" height="312" alt="image" src="https://github.com/user-attachments/assets/b632e311-32d2-4e8f-8b3f-0928a6b9d63e" />
+
+<img width="701" height="212" alt="image" src="https://github.com/user-attachments/assets/615228fe-84b6-4fa9-8550-c07117657e63" />
+
+CBJS{Not_only_;&|_but_there_are_mor_520c298589c33766dc2688b3866c95cb}
+
+- Cách khác sử dụng commmand sub
+
+<img width="597" height="138" alt="image" src="https://github.com/user-attachments/assets/c10aae76-e21a-4644-b05f-7367e18ade66" />
+
+<img width="717" height="220" alt="image" src="https://github.com/user-attachments/assets/26d474d6-c01a-4121-9807-585b5780cbcc" />
+
+<img width="710" height="149" alt="image" src="https://github.com/user-attachments/assets/8a3365d1-ac70-4dba-8e21-6768d7565e51" />
+
+'CBJS{Not_only_;&|_but_there_are_mor_520c298589c33766dc2688b3866c95cb}' is not a legal name (label too long)
+
+# 4.
+
+
+
 # NOTE #
 Tài liệu
 
