@@ -1,4 +1,4 @@
-<img width="590" height="356" alt="image" src="https://github.com/user-attachments/assets/8eb8c92c-9e77-408d-9601-ce82d6dcbf72" />## COMMAND INJECTION #
+## COMMAND INJECTION ##
 
 # LAB #
 
