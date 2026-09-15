@@ -57,7 +57,37 @@ CBJS{Not_only_;&|_but_there_are_mor_520c298589c33766dc2688b3866c95cb}
 
 # 4.
 
+<img width="698" height="469" alt="image" src="https://github.com/user-attachments/assets/edb03662-6cdf-4a8b-9dc0-b35502951ca1" />
 
+Chỉ có thể sử dụng chức năng backup
+
+`$_POST['target']` có thể là điểm inject vì được gán thẳng vào `$result = shell_exec("timeout 3 zip /tmp/$target -r /var/www/html/index.php 2>&1");`
+
+Chương trình lấy file `/var/www/html/index.php` nén thành zip và lưu tại /tmp/$target
+
+Lưu ý là chương trình ko có flter kí 
+
+Đọc flag xong sẽ dùng lệnh `curl` để bắn nội dung flag ra bên ngoài sv ( webhook )
+
+CÁC BƯỚC TRONG BÀI LAB NÀY
+1. Cần 1 host HTTP ở ngoài internet để bắt lấy gói tin chứa flag
+2. Exploit OS Command Injection, ghi output của command ra /tmp/pwned.txt
+3. Vẫn dùng OS Command Injection để gửi /tmp/pwned.txt bằng CURL tới địa chỉ webhook.site
+4. Nhận được flag từ webhook
+
+<img width="489" height="279" alt="image" src="https://github.com/user-attachments/assets/f45e187c-599b-4607-a734-be7212c56772" />
+
+
+<img width="959" height="431" alt="image" src="https://github.com/user-attachments/assets/73df4b67-9718-4e62-9f6c-51b89eba4dab" />
+
+<img width="479" height="265" alt="image" src="https://github.com/user-attachments/assets/ad5c8672-1661-4f33-a425-f2302ebb45dc" />
+
+<img width="959" height="356" alt="image" src="https://github.com/user-attachments/assets/f338c4dc-f9e5-45cf-9087-ae672872e9ca" />
+
+<img width="469" height="242" alt="image" src="https://github.com/user-attachments/assets/2a416ee1-38d3-4e8a-8fd1-68ccea68e04e" />
+
+
+CBJS{Blind_Command_Injection_a3183b33bb4885bbd0c9ddfe20c35ab8}
 
 # NOTE #
 Tài liệu
