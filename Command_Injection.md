@@ -89,6 +89,36 @@ CÁC BƯỚC TRONG BÀI LAB NÀY
 
 CBJS{Blind_Command_Injection_a3183b33bb4885bbd0c9ddfe20c35ab8}
 
+# 5
+
+<img width="508" height="149" alt="image" src="https://github.com/user-attachments/assets/e25aceca-227c-4ed0-a360-077fda8343a2" />
+
+Ở level này, ta không gửi gói tin ra ngoài được nữa
+Cần kiểm tra xem ta có thể ghi file vào /var/www/html không? Thư mục có quyền ghi không
+Có 2 cách:
+C1: Write shell vào DocumentRoot rồi bla bla
+C2: Write FLAG vào DocumentRoot rồi đọc từ http://../flag.
+
+<img width="426" height="197" alt="image" src="https://github.com/user-attachments/assets/af64e6ea-0aa2-4e56-addd-3de86427b37c" />
+
+<img width="386" height="62" alt="image" src="https://github.com/user-attachments/assets/8974ac9c-9035-4572-ae19-aa17e29b13e4" />
+
+<img width="959" height="344" alt="image" src="https://github.com/user-attachments/assets/79a61a64-186b-4748-9bff-fa004620db1a" />
+
+<img width="959" height="314" alt="image" src="https://github.com/user-attachments/assets/5c1501d5-6990-4134-a234-e803a0ed05d4" />
+
+CBJS{n0_1nternet_command_injection_dbf02a0e608f8b08d5a23591a47ff36b}
+
+# 6
+
+<img width="455" height="126" alt="image" src="https://github.com/user-attachments/assets/aae6a701-2c73-40df-9651-607a2543dcef" />
+
+Đến level này ta không còn có thể ghi đè vào DocumentRoot nữa
+
+
+
+
+
 # NOTE #
 Tài liệu
 
