@@ -115,10 +115,51 @@ CBJS{n0_1nternet_command_injection_dbf02a0e608f8b08d5a23591a47ff36b}
 
 Đến level này ta không còn có thể ghi đè vào DocumentRoot nữa
 
+<img width="743" height="214" alt="image" src="https://github.com/user-attachments/assets/18eedbf6-bbd8-47f8-a5d3-288d0e91827a" />
+
+<img width="479" height="252" alt="image" src="https://github.com/user-attachments/assets/55350547-9237-4750-9fd5-ff622a895cb4" />
+
+Test trường hợp hiển thị thông báo lỗi `zip error`
+
+<img width="368" height="225" alt="image" src="https://github.com/user-attachments/assets/0e98d507-f75a-485c-9484-7658ada86d3b" />
+Ép ctrinh in "zip error"
+
+<img width="449" height="246" alt="image" src="https://github.com/user-attachments/assets/1b05a4df-5f43-4760-b0fd-bd90ff4fe279" />
+
+In lỗi vì có dấu `;` ở sau, lệnh zip thiếu tham số
+- Thư mục muốn zip
+- Tên file
+
+<img width="470" height="227" alt="image" src="https://github.com/user-attachments/assets/abfafe3d-31af-4a29-8143-1004c336c209" />
+Mặc dù đã gán thư mục vào nhưng chỉ cần in dòng `zip error`, chương trình vẫn báo 
+
+Trong source code, `shell_exec` là đang chạy `shell /bin/sh`
+
+<img width="443" height="220" alt="image" src="https://github.com/user-attachments/assets/9734a471-46fa-46f7-98ad-383a52f73f90" />
+Đây là lệnh if else cơ bản trong bin/sh
+Vì 1 so sánh với 2 --> sai, rơi vào trường hợp else -> thành công
+
+<img width="427" height="85" alt="image" src="https://github.com/user-attachments/assets/5091a6d5-5e18-4d50-9f70-5ffb66ca50a7" />
+
+Flag nằm ở đâu đó /*secret.txt
+Đọc kết quả `ls /` --> tìm được tên của flag thật
+Rồi sau đó, mới bắt đầu đọc tiếp nội dung flag thật
+Giờ ta sẽ thử viết câu điều kiện if:
+1. Kiểm tra xem ký tự đầu tiên có phải là 'A' không?
+2. Nếu là 'A' --> điều kiện if đúng --> "Backup thành công"
+3. Nếu không là 'A' --> điều kiện if sai --> "Backup không thành công"
+--. brute force từng ký tự
+
+ ls | head -n 1 | cut -c 1
+ head: dùng để lấy từng dòng
+ cut: dùng để lấy từng ký tự
+lấy ký tự đầu tiên của tên file dòng 1 
+Mà flag thường có tên /xxx_secret.txt
+
+<img width="548" height="182" alt="image" src="https://github.com/user-attachments/assets/a01ac0e0-75c6-4a80-83a0-e6d279b8e309" />
 
 
-
-
+    
 # NOTE #
 Tài liệu
 
@@ -132,4 +173,7 @@ https://www.gnu.org/software/bash/manual/html_node/index.html#SEC_Contents
 
 https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html 
 
+- Tại sao xuống dòng không cần encode
++ Khi tham số rơi vào /bin/bash, Burp sẽ tự encode
++ Cú pháp gói tin http khi ở bash thì ko cần nhưng vẫn cần encode dấu `&`
 
