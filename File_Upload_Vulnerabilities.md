@@ -342,9 +342,16 @@ upload/test.jpg
 Cho phép cấu hình Apache ngay tại từng thư mục 
  <img width="292" height="208" alt="image" src="https://github.com/user-attachments/assets/bdab20e2-a08b-40f6-b8b7-ca36de5445ba" />
 
+## Tổng hợp các lỗi trong từng bài lab
+# 1. Chương trình không giới hạn các file extension
+# 2. Đã có lớp filter xác định extension nhưng chỉ xác định tại mảng 1
+# 3. Chương trình detect tất cả các file extension phía sau bằng dấu chấm nếu $extension === 'php'. Nhưng ở PHP handler lại cho phép nhưng file đuôi `.phar`, `.php` hoặc `.phtml` thực thi code php
+# 4. Chặn cả 3 đuôi file trên, ta sẽ thay đổi config của apache bằng cách ghi đè lên file `.htaccess` để tự tạ config mod-php tùy ý
+- 1 cách tiếp cận khác với lỗi XSS: Sử dụng document.cookie để lấy cookie nạn nhân sau đó sẽ tạo HTTP request tới 
+# 5 Giờ ctrinh đã restricted và chỉ cho phép up file ảnh nhưng có thể modify request, thay đổi file name và content trong repeater
+# Giờ ctrinh restricted chỉ cho phép file ảnh và check cả đặc trưng nội dung để xem file có phải file ảnh không. Ta sẽ sử dụng các signature của các file mà hệ thống cho phép
 
 
-    
 
 
 
