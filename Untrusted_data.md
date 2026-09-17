@@ -29,17 +29,17 @@ Password: '--
 ![image](https://github.com/user-attachments/assets/fea5159c-0036-4d6c-ade2-927cf9ffc3be)
 
 
-## 5 POST at /sign-in.php with param password
+## 5 POST at /sign-in.php with param username
 
 ![image](https://github.com/user-attachments/assets/24880429-cf4c-4f70-b34a-2232ea178b91)
 
 
-## 6
+## 6 POST at /sign-in.php with param password
 Username: '--
 Password: test
 
 
-![image]https://github.com/user-attachments/assets/587313e3-df7f-4b8d-88c2-23b04bfb4d11)
+![image](https://github.com/user-attachments/assets/587313e3-df7f-4b8d-88c2-23b04bfb4d11)
 
 
 
@@ -52,8 +52,11 @@ test
 
 
 ## 8  Hidden feature /premium.php
+Dò /track.php?id= để mở feature ẩ
 
 ![image](https://github.com/user-attachments/assets/997cf0d1-e3ee-4fd5-819f-f93c023bc894)
+
+
 
 ![image](https://github.com/user-attachments/assets/527be554-054c-4152-b9b5-b9cdd373dd40)
 
@@ -129,7 +132,7 @@ Upload file test.js
 
 # NOTE 
 ## 1. Nơi đầu tiên Untrusted Data xuất hiện 
-![image]https://github.com/user-attachments/assets/a3b15a59-b6c6-4eb7-b2c6-7aaea6ae3160)
+![image](https://github.com/user-attachments/assets/a3b15a59-b6c6-4eb7-b2c6-7aaea6ae3160)
 
 Mảng chứa tham số GET param
 
@@ -139,5 +142,32 @@ Mảng chứa tham số GET param
 
 3 trường POST và biến cookie
 
+## Tổng kết những untrusted data có trong bài lab trên 
+1. GET tại /register.php với param name
+2. GET tại /register.php với param email
+3. POST tại /sign-up.php với param username
+4. POST tại /sign-up.php với param password
+5. 
+6. Untrusted referer
+Header referer có thể bị modify:
+`Referer: http://192.168.49.128:12000/register.php?name=test&email=test%40gmail.com`
+7. POST tại /profile.php với param tên người dùng
+8. POST tại /profile.php với param mật khẩu
+9. Modify cookie
+10. GET tại register.php với username
+11. Hidden feature tại /premium.php
+Ta dò tham số /track.php để mở ra feature ẩn
+12. POST tại /sign-in.php với param username
+13. POST tại /sign-in.php với param password
+14. Hidden path
+15. Untrusted file content
+16. Untrusted file name
+17. Modify giá trị user-agent
+18. Modifile content trong method POST
+19. Modify file name trong repeater
+20. Modify file content trong repeater
 
-
+## Đâu là untrusted data
+1. Gói tin HTTP request bởi nội dung có thể bị thay đổi
+2. Dữ liệu người dùng
+3. Dữ liệu từ máy chủ khác vì dữ liệu có thể bị thay đổi hoặc chưa được xử lý an toàn trước khi được gửi
