@@ -450,7 +450,8 @@ function linkDB($db, $dbtype='', $action = "die") {
 $cmd = "\$param_".$keyval[0]."=\"".$keyval[1]."\";";
 ```
 Giả sử 
-``
+
+```
 $keyval[0] = DB_HOST
 $keyval[1] = localhost
 ```
@@ -461,6 +462,7 @@ thì `$cmd` sẽ thành `$param_DB_HOST="localhost";` , 1 đoạn code PHP dư�
 
 
 - Trong `putConfigs()`
+- 
 ```
 function putConfigs($post) {
 
@@ -477,15 +479,14 @@ function putConfigs($post) {
 
 ```
 function activeActiveCmdExec($get) {
-
     switch ($get["cmdtype"]) {
-
         case "PUTCONFS":
             putConfigs($get["post"]);
             break;
     }
 }
 ```
+
 Hàm nhận `$get` và kiểm tra cmdtype. Nếu nó là PUTCONFS thì gọi `putConfigs($get["post"]);`
 
 ```
@@ -499,6 +500,7 @@ if ($_GET["cmd"] == "ACTACT") {
     activeActiveCmdExec($_GET);
 }
 ```
+
 `$_GET` được lấy từ HTTP request sau đó gọi `activeActiveCmdExec($_GET);`
 
 FLOW EXPLOIT
@@ -576,4 +578,162 @@ Nhưng ban đầu ta đã có thể đọc `/var/uag/config/failover.cfg` --> ta
 ## Checklist
 Nguồn: https://onsecurity.io/article/file-upload-checklist/
 
-# 1. 
+# 1. Filename có reflect lên page không?
+
+- Filename cần được HTML encode nếu không sẽ trở thành XSS input
+
+# 2. Có cho upload `.zip` không ? --> Kiểm tra ZipSlip
+- Nếu server giải nén file zip, cần kiểm tra cách server xử lý tên file bên trong zip. Trong tệp zip, user có thể đặt tên cho file là `../../file` --> dẫn đến ZipSlip ( path traversal )
+
+# 3. Xử lý image --> Kiểm tra ImageTragick 
+
+- CVE EXPLOIT (https://community.f5.com/t/imagetragick-imagemagick-remote-code-execution-vulnerability/64084)
+
+# 4. Bypass file type bằng `Content-Type`
+
+# 5. Modify Magic Bytes
+
+- Magic bytes là các byte ở đầu file giúp nhận diện định dạng file
+
+# 6. Upload những extension ít phổ biến 
+
+- Ví dụ
+
+```
+.php
+.phtml
+.php3
+.php4
+```
+
+# 7. Modify filename để khai thác Path Traversal/SQLi
+
+```
+filename
+   ↓
+backend
+   ├── filesystem → Path Traversal
+   ├── database   → SQL Injection
+   ├── HTML       → XSS
+   └── command    → Command Injection
+```
+
+# 8. Double extension
+
+# 9. Null-byte injection
+
+- Ví dụ
++ Application thấy `file.php%00.jpg`
++ Các thư viện (cũ) thấy `file.php`
+
+# 10. Window + trailing `.`
+
+- Ở một số trường hợp, ta có thể bypass file extension bằng cách dùng `abc.php`. App nhìn thấy sau dấu chấm không phải `php` --> accept
+- Nhưng với Windows filesystem, `abc.php.` sẽ thành `abc.php`
+
+# 11. Upload SVG --> XSS
+
+- SVG không phải ảnh như JPG/PNG mà là một XML document mô tả hình ảnh
+
+```
+cat.jpg                                          
+    ↓
+Browser
+    ↓
+decode image
+    ↓
+hiển thị pixel
+```
+
+```
+cat.svg
+    ↓
+Browser
+    ↓
+XML/SVG parser
+    ↓
+SVG document
+    ↓
+render
+```
+- Ví dụ
+
+```
+<svg xmlns="http://www.w3.org/2000/svg">
+  <script>alert("XSS")</script>
+</svg>
+```
+--> stored xss
+
+# 12. Upload `.htaccess`
+
+- Nếu cấu hình `AllowOverride` cho phép 
+
+# 13. Backend xử lý ảnh bằng PHP GD
+
+```
+                    Upload original
+                         │
+             ┌───────────┴───────────┐
+             ↓                       ↓
+       Lưu nguyên file          Decode bằng GD
+             │                       ↓
+             │                 xử lý ảnh
+             │                       ↓
+             │                  Encode lại
+             │                       ↓
+             ↓                  new image
+        original.jpg             thumbnail.jpg
+```
+
+- Nếu attacker upload file độc mà hệ thống move thẳng đến folder đích thì toàn bộ bytes ban đầu vẫn còn nguyên. Trong khi đó, GD sẽ xử lý lại thành file mới, không còn giống byte-for-byte
+- Nhưng GD cũng là một parser, vẫn phải đọc file do attacker cung cấp nên có thể tồn tại vul trong quá trình xử lý  
+
+# 14. FFmpeg exploit URGHHHHHHH ĐỂ SAU
+
+# 15. Polyglot file 
+
+# 16. Filename được truyền vào system function
+
+# 17. ExifTool --> DjVu exploit
+- Check lại version của tool được sử dụng
+- CVE-2021-22204 ( https://ine.com/blog/exiftool-command-injection-cve-2021-22204-exploitation-and-prevention-strategies )
+
+# 18. Case-sensitive extension
+
+- Thay vì chỉ test `.php`, test cả những trường hợp như
++ `.PHP`
++ `.PhP`
++ `pHp`
+
+# RCE VIA FILE NAME PARAMETER
+
+- Nếu dev code không an toàn, user có thể đặt tên file bằng lệnh shell và thực thi lệnh sau khi file upload thành công
+
+```
+| File Name | Payload | Outcome If Vulnerable |
+| ——– | ——– | ——– |
+| a$(whoami)z.jpg | $(whoami) | a[CURRENT USER]z.jpg |
+| a`whoami`z.jpg | `whoami` | a[CURRENT USER]z.jpg |
+|a;sleep 30;z.jpg|;sleep 30;| The application will take 30+ seconds to respond |
+```
+# RCE via ExifTool Exploit
+
+- Exiftool versions 7.44 đến 12.23
+- Exploit (https://hackerone.com/reports/1154542)
+
+# Upload a malicious SVG file for XSS
+
+```
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg">
+   <rect width="300" height="100" style="fill:rgb(255,0,0);stroke-width:3;stroke:rgb(0,0,0)" />
+   <script type="text/javascript">
+      alert("XSS!");
+   </script>
+</svg>
+```
+
+
