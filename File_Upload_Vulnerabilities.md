@@ -336,22 +336,244 @@ upload/test.jpg
 
 -  Các file config của Apache
 + File config chính
+
 <img width="205" height="119" alt="image" src="https://github.com/user-attachments/assets/358701c2-6de7-450d-832f-7978600aaa1e" />
+
 + File `.htaccess`
+
   <img width="223" height="104" alt="image" src="https://github.com/user-attachments/assets/0ef6e5d1-ed17-4708-89fc-d4f2c04aa79c" />
+  
 Cho phép cấu hình Apache ngay tại từng thư mục 
+
  <img width="292" height="208" alt="image" src="https://github.com/user-attachments/assets/bdab20e2-a08b-40f6-b8b7-ca36de5445ba" />
 
 ## Tổng hợp các lỗi trong từng bài lab
-# 1. Chương trình không giới hạn các file extension
-# 2. Đã có lớp filter xác định extension nhưng chỉ xác định tại mảng 1
-# 3. Chương trình detect tất cả các file extension phía sau bằng dấu chấm nếu $extension === 'php'. Nhưng ở PHP handler lại cho phép nhưng file đuôi `.phar`, `.php` hoặc `.phtml` thực thi code php
-# 4. Chặn cả 3 đuôi file trên, ta sẽ thay đổi config của apache bằng cách ghi đè lên file `.htaccess` để tự tạ config mod-php tùy ý
+1. Chương trình không giới hạn các file extension
+2. Đã có lớp filter xác định extension nhưng chỉ xác định tại mảng 1
+3. Chương trình detect tất cả các file extension phía sau dấu chấm nếu $extension === 'php'. Nhưng ở PHP handler lại cho phép những file đuôi `.phar`, `.php` hoặc `.phtml` thực thi code php
+4. Chặn cả 3 đuôi file trên, ta sẽ thay đổi config của Apache bằng cách ghi đè lên file `.htaccess` để tự tạo config mod_php tùy ý
 - 1 cách tiếp cận khác với lỗi XSS: Sử dụng document.cookie để lấy cookie nạn nhân sau đó sẽ tạo HTTP request tới 
-# 5 Giờ ctrinh đã restricted và chỉ cho phép up file ảnh nhưng có thể modify request, thay đổi file name và content trong repeater
-# Giờ ctrinh restricted chỉ cho phép file ảnh và check cả đặc trưng nội dung để xem file có phải file ảnh không. Ta sẽ sử dụng các signature của các file mà hệ thống cho phép
+5. Giờ ctrinh đã restricted và chỉ cho phép up file ảnh nhưng có thể modify request, thay đổi file name và content trong repeater
+6.Giờ chương trình restricted chỉ cho phép file ảnh và check cả đặc trưng nội dung để xem file có phải file ảnh không. Ta sẽ sử dụng các signature của các file mà hệ thống cho phép
+
+## Case study RCE 
+1. Arbitrary File Read
+`/opm/read_sessionlog.php?logFile=....//....//....//etc/passwd`
+`logFile` được dùng để xác định file cần đọc và trong case này, có thể lợi dụng để đọc file ngoài
+
+- Bình thường, khi truy cập trang web, server sẽ thực thi PHP rồi trả về kết quả HTML. Nhưng với lỗi đọc file tùy ý này, ta có thể đọc trực tiếp source code và hiểu cách app hoạt động
+
+- Lấy được username, password hash nhưng không sử dụng được vì credential lấy từ `/etc/paswd` là Linux credential, còn `login.php` có thể sử dụng web-application credential riêng, nên không thể mặc định lấy `sftpftp + password` rồi đăng nhập web là được
+- Chuyển sang tìm source code của web app --> tìm `document_root`. Sau khi đọc file config Apache, tìm được
+`/var/www/htdocs/uag/web/`
+
+```
+Web server
+    │
+    └── /var/www/htdocs/uag/web/
+            │
+            ├── login.php
+            ├── opm/
+            │    └── read_sessionlog.php
+            └── ...
+```
+
+- Và ta có được 2 file
+```
+/var/www/htdocs/uag/web/opm/read_sessionlog.php
+/var/www/htdocs/uag/web/login.php
+```
+
+- Quy trình
+
+``` 
+Arbitrary File Read
+        │
+        ▼
+đọc /etc/passwd
+        │
+        ▼
+tìm Apache configuration
+        │
+        ▼
+tìm document_root
+        │
+        ▼
+đọc source login.php
+        │
+        ▼
+tìm các tệp include / require / config / function
+        │
+        ▼
+đọc tiếp các source file
+        │
+        ▼
+audit toàn bộ ứng dụng
+        │
+        ▼
+tìm vulnerability
+        │
+        ▼
+tìm đường tới RCE
+```
+2. Khai thác RCE
+
+- Tổng quan quá trình
+
+```
+Arbitrary File Read → tìm source → tìm eval() → tìm cách ghi file → vượt qua Shared Key → RCE
+```
 
 
+```
+function linkDB($db, $dbtype='', $action = "die") {
+    ...
+    $synccfg = file("/var/uag/config/failover.cfg");
+
+    foreach ($synccfg as $line) {
+        $line = trim($line);
+        $keyval = explode("=", $line);
+
+        $cmd = "\$param_".$keyval[0]."=\"".$keyval[1]."\";";
+
+        eval($cmd);
+    }
+}
+```
++ eval(): thực thi 1 chuỗi bất kỳ truyền vào như một mã php hợp lệ
++ linkDB() đọc file `failover.cfg`
++ file() đọc file và đưa mỗi dòng vào 1 phần tử
++ `foreach` lấy từng dòng trong `$synccfg`
++ `explode()` tách chuỗi thành nhiều 
+
+```
+$cmd = "\$param_".$keyval[0]."=\"".$keyval[1]."\";";
+```
+Giả sử 
+``
+$keyval[0] = DB_HOST
+$keyval[1] = localhost
+```
+
+thì `$cmd` sẽ thành `$param_DB_HOST="localhost";` , 1 đoạn code PHP dưới dạng string
+
+--> Nếu có thể ghi đè được vào `failover.cfg`, có thể đưa code vào `eval()`
 
 
+- Trong `putConfigs()`
+```
+function putConfigs($post) {
 
+    $file = "/var/uag/config/failover.cfg";
+
+    $post = unserialize(base64_decode($post));
+
+    $err = saveconfig($file, $post);
+}
+```
+
+-> Hàm nhận dữ liệu `$post` rồi lưu nó vào `failover.cfg`
+`saveconfig()` lưu `$post` vào file config `failover.cfg`
+
+```
+function activeActiveCmdExec($get) {
+
+    switch ($get["cmdtype"]) {
+
+        case "PUTCONFS":
+            putConfigs($get["post"]);
+            break;
+    }
+}
+```
+Hàm nhận `$get` và kiểm tra cmdtype. Nếu nó là PUTCONFS thì gọi `putConfigs($get["post"]);`
+
+```
+/var/www/htdocs/uag/functions/ajax_cmd.php
+if ($_GET["cmd"] == "ACTACT") {
+    if (!isset($_GET['post'])) {
+        $matches = array();
+        preg_match('/.*\&post\=(.*)\&?$/', $_SERVER['REQUEST_URI'], $matches);
+        $_GET['post'] = $matches[1];
+    }
+    activeActiveCmdExec($_GET);
+}
+```
+`$_GET` được lấy từ HTTP request sau đó gọi `activeActiveCmdExec($_GET);`
+
+FLOW EXPLOIT
+
+```
+Người dùng gửi HTTP request
+          ↓
+        $_GET
+          ↓
+activeActiveCmdExec($_GET)
+          ↓
+$get["post"]
+          ↓
+putConfigs($get["post"])
+          ↓
+base64_decode()
+          ↓
+unserialize()
+          ↓
+saveconfig()
+          ↓
+failover.cfg
+          ↓
+linkDB()
+          ↓
+file()
+          ↓
+tạo $cmd
+          ↓
+eval($cmd)
+          ↓
+PHP thực thi code
+```
+
+Nhưng còn 1 bước nữa là phải nhập shared_key
+
+```
+function checkSharedKey($shared_key) {
+
+    if (strlen($shared_key) != 32) {
+        return false;
+    }
+
+    if (trim($shared_key) == "") {
+        return false;
+    }
+
+    if ($f = file("/var/uag/config/failover.cfg")) {
+
+        foreach ($f as $row) {
+
+            $row = trim($row);
+
+            if ($row == "") {
+                continue;
+            }
+
+            $row_sp = preg_split("/=/", $row);
+
+            if ($row_sp[0] == "SHARED_KEY") {
+
+                if ($shared_key == $row_sp[1])
+                    return true;
+            }
+        }
+
+    } else {
+        return false;
+    }
+}
+```
+
+Nhưng ban đầu ta đã có thể đọc `/var/uag/config/failover.cfg` --> ta sẽ đọc `failover.cfg` để lấy shared key
+
+## Checklist
+Nguồn: https://onsecurity.io/article/file-upload-checklist/
+
+# 1. 
