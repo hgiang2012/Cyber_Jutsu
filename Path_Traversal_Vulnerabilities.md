@@ -175,3 +175,6 @@ Gửi  GET request có User-Agent là `<? phpinfo() ?>`
 
 <img width="362" height="162" alt="image" src="https://github.com/user-attachments/assets/2fff7019-5406-4334-8d75-188677780b32" />
 
+## Tổng kết lại các lỗi trong bài lab 
+
+
