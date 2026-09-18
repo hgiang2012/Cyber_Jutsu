@@ -89,10 +89,17 @@ CBJS{LFI+FileUpload=Bomb}
 
 ## Level 5:
 
+<img width="467" height="163" alt="image" src="https://github.com/user-attachments/assets/753b74bc-5c62-49c6-9056-7b47e05e2ffd" />
+
+Thử test những file này xem có đọc được không
 
 <img width="959" height="320" alt="image" src="https://github.com/user-attachments/assets/e99a7afc-6963-42ed-b3b3-a8c3df42e91f" />
 
+
+
 <img width="959" height="371" alt="image" src="https://github.com/user-attachments/assets/e20a8f07-0dac-4368-a6a8-a67ec50fbe62" />
+
+Ta cần xác 
 
 ```
 10.10.0.250
@@ -102,19 +109,35 @@ CBJS{LFI+FileUpload=Bomb}
 38136 "https://pathtraversal.cyberjutsu-lab.tech:8095/?game=fatty-bird-1.html" --> referer 
 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36" --> user-agent header
 ```
---> 1 dòng log như vậy thì mình kiểm soát được bnhieu phần, phần nào ?
-Dòng 3: có thể ksoat
-Dòng 6: vì đến từ referer header của http request 
+--> 1 dòng log như vậy thì mình kiểm soát được bao nhiêu phần, phần nào ?
+
+Dòng 3: có thể kiểm soát
+
+Dòng 6: vì đến từ Referer header của http request 
+
 Dòng 7: dc
---> Request line, referer header, user-agent header
+
+--> Request line, Referer header, User-Agent header
 
 <img width="416" height="398" alt="image" src="https://github.com/user-attachments/assets/406027fd-38d8-4a19-8fb6-27e2e8d4ecc0" />
 
 - Dòng 3 có untrusted data là biến `$_GET['game']`
 - Dòng 21 biến`$game` được cộng chuỗi với một đường dẫn và đi vào hàm `include`
 
-- `include` sau khi copy ndung file, sẽ thực thi luôn code php trong đó
+- `include` sau khi copy nội dung file của file khác vào file hiện tại, sẽ thực thi luôn code php trong đó
+--> file `index.php` hiển thị giao diện dựa vào giá trị của tham số GET `game`
 --> Cần đưa untrusted data rơi vào trong nội dung của một file có sẵn trên server và ở những điểm có thể inject
+
+  <img width="203" height="219" alt="image" src="https://github.com/user-attachments/assets/b5f1f0fa-a66e-43ce-a675-59eca8ae2a7b" />
+
+- Biến `$game` đã bị prefix bởi `./views/` , để đọc được một file khác trong thư mục, cần sử dụng `../`
+
+<img width="927" height="302" alt="image" src="https://github.com/user-attachments/assets/cef37d0a-fde1-49e3-ae45-7e6e368ded2b" />
+
+- Như đã nói ở trên, `include` sau khi copy nội dung file, nó sẽ thực thi luôn nếu có code PHP trong đó
+- Nhưng trang web không có chức năng upload nên cần tìm một file có chức năng ghi lại, và ta có tính năng log
+
+  
 - Giá trị mặc định của `${APACHE_LOG_DIR}` là `/var/log/apache2/`
 ../../../../var/log/apache2/access.log
   <img width="805" height="361" alt="image" src="https://github.com/user-attachments/assets/94dfb897-ff16-4dcf-af77-a659e534780f" />
@@ -123,6 +146,8 @@ Gửi  GET request có User-Agent là `<? phpinfo() ?>`
 <img width="959" height="467" alt="image" src="https://github.com/user-attachments/assets/fb9f21a6-1545-4ad6-9082-5d0757014cc5" />
 - Sau đó, thay `phpinfo()` thành ` system($_GET['cmd'])` và truyền câu lệnh muốn thực thi vào tham số `cmd`
 <img width="861" height="316" alt="image" src="https://github.com/user-attachments/assets/a29c38e0-b8b5-445e-a9af-5738b24df952" />
+
+
 
 # 2. NOTE
 
