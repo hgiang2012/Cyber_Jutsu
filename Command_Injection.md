@@ -158,6 +158,8 @@ Mà flag thường có tên /xxx_secret.txt
 
 <img width="548" height="182" alt="image" src="https://github.com/user-attachments/assets/a01ac0e0-75c6-4a80-83a0-e6d279b8e309" />
 
+# 7. 
+
 
     
 # NOTE #
