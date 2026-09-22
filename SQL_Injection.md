@@ -56,7 +56,73 @@ CBJS{4f629fe490901e261258d977a47f96e1}
 
 <img width="526" height="72" alt="image" src="https://github.com/user-attachments/assets/3bf7cf80-6b90-41d0-bf2c-7b5934c45d96" />
 
-Không comment phần password trong lab này được vì có check valid
+Hàm check valid có nhiệm vụ check xem trong input có chứa dấu doublelash không
+
+`   $sql = "SELECT username FROM users WHERE username=LOWER(\"$username\") AND password=MD5(\"$password\")"; `
+
+Xuất hiện dấu  `\`
+
+<img width="522" height="270" alt="image" src="https://github.com/user-attachments/assets/79d37ecf-2048-4f4e-9c34-cecb0a8ec0e4" />
+
+Có tác dụng bỏ ý nghĩa đặc biệt của ký tự --> chuyển thành string
+
+Ví dụ với input như sau
+
+<img width="608" height="21" alt="image" src="https://github.com/user-attachments/assets/d138463c-20de-4e2c-b62b-b76b76dbeaf4" />
+
+<img width="676" height="41" alt="image" src="https://github.com/user-attachments/assets/0bb73d8f-0230-469d-933d-5e6d42f4d56b" />
+
+Trong khi đó code chỉ kiểm tra username
+
+`$row = $query->fetch_assoc(); // Get the first row`
+
+Code chỉ kiểm tra dòng đầu tiên, tức là SQLi có thể tạo ra nhiều dòng nhưng php chỉ lấy dòng đầu tiên
+
+Ta thử dùng `\` làm input cho username
+
+`LOWER(\"$username\")`
+
+ Mà 
+ ```
+"      → bắt đầu chuỗi
+\ "    → dấu " được escape, không đóng chuỗi
+```
+
+Từ đó input của username sẽ là `\” AND password=MD5(`
+
+Vậy ta sẽ có
+
+SELECT username FROM users
+WHERE username=LOWER("\")
+AND password=MD5(") 
+UNION SELECT 'admin'#")
+
+CBJS{44682b8def08e0fe9cdcb079e7db4dc0}
+
+# 5. Basic 5
+
+<img width="615" height="191" alt="image" src="https://github.com/user-attachments/assets/cef82685-c218-411c-aa87-03f5d4706ce1" />
+
+Giờ code check cả username và password
+
+Nên ta sẽ tìm cách để sql trả về kết quả cả 2 giá trị username password 
+
+<img width="425" height="359" alt="image" src="https://github.com/user-attachments/assets/73e878fd-60dc-4c30-a164-5d6d2ceff489" />
+
+Nhưng hàm check password còn hash input để so với dbs
+
+<img width="611" height="134" alt="image" src="https://github.com/user-attachments/assets/017d59d0-2df9-4c40-97ed-3afd8b2d7ef5" />
+
+Chú ý thông báo còn trả về thông tin này 
+ Vậy ta phải tìm ra payload để thông báo này trả về password của tài khoản admin
+
+<img width="437" height="358" alt="image" src="https://github.com/user-attachments/assets/4be4c8f5-a66e-4b4b-baf4-188d6773266a" />
+
+ `SELECT username, password FROM users WHERE username='aaaa' union select password, 1 from users where username='admin' `
+
+ <img width="818" height="364" alt="image" src="https://github.com/user-attachments/assets/6ebfc6a5-4cdd-4be9-aad8-5b5082b92291" />
+
+Lấy giá trị đầu tiên từ  result test của SQL 
 
 
 # NOTE
